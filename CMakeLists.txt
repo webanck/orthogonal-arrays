@@ -11,8 +11,11 @@ cmake_minimum_required(VERSION 2.8.12)
 include_directories(include)
 #aux_source_directory(src)
 add_executable(orthogonal_arrays
+	src/primes.cpp
 	src/Misc.cpp
 	src/OA.cpp
+	src/OABush.cpp
+	src/OABose.cpp
 	src/OACMJND.cpp
 	src/main.cpp
 )

@@ -6,6 +6,7 @@
 
 
 #include <OACMJND.h>
+#include <OABose.h>
 
 
 using namespace std;
@@ -59,11 +60,17 @@ int main(int argc, char ** argv)
 
 	std::ofstream file(output_path);
 
-	//const OffsetType ot(CMJ_STYLE);
-	const OffsetType ot(MJ_STYLE);
+	////const OffsetType ot(CMJ_STYLE);
+	//const OffsetType ot(MJ_STYLE);
+	//const bool randomized(true);
+	//const float max_jitter(1.);
+	//CMJNDInPlace sampler(samples_number, dimensions_number, ot, randomized, max_jitter);
+
+	const OffsetType ot(CMJ_STYLE);
+	//const OffsetType ot(MJ_STYLE);
 	const bool randomized(true);
 	const float max_jitter(1.);
-	CMJNDInPlace sampler(samples_number, dimensions_number, OffsetType::CMJ_STYLE, randomized, max_jitter);
+	BoseOAInPlace sampler(samples_number, ot, randomized, max_jitter, dimensions_number);
 	
 	float * sample(new float[dimensions_number]);
 	for(uint r(0u); r < realisations_number; r++)

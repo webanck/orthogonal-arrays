@@ -15,6 +15,8 @@ enum OffsetType : unsigned
     NUM_OFFSET_TYPES
 };
 
+
+
 /**
    Base class for all Orthogonal Array-based samplers.
 
