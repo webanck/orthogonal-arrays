@@ -53,15 +53,17 @@ int main(int argc, char ** argv)
 	}
 
 	cout << "Realisations:" << realisations_number << endl;
-	cout << "Dimensions:" << realisations_number << endl;
+	cout << "Dimensions:" << dimensions_number << endl;
 	cout << "Samples:" << samples_number << endl;
 	cout << "Output path:" << output_path << endl;
 
 	std::ofstream file(output_path);
 
+	//const OffsetType ot(CMJ_STYLE);
+	const OffsetType ot(MJ_STYLE);
 	const bool randomized(true);
-	const bool jittered(false);
-	CMJNDInPlace sampler(samples_number, dimensions_number, OffsetType::CENTERED, randomized, jittered);
+	const float max_jitter(1.);
+	CMJNDInPlace sampler(samples_number, dimensions_number, OffsetType::CMJ_STYLE, randomized, max_jitter);
 	
 	float * sample(new float[dimensions_number]);
 	for(uint r(0u); r < realisations_number; r++)
@@ -69,6 +71,7 @@ int main(int argc, char ** argv)
 		for(uint s(0u); s < samples_number; s++)
 		{
 			sampler.sample(sample, s);
+			//sampler.sample(sample, r*dimensions_number*samples_number + s);
 			for(uint d(0u); d < dimensions_number; d++)
 			{
 				if(d > 0u) file << " ";
@@ -77,8 +80,7 @@ int main(int argc, char ** argv)
 			file << endl;
 		}
 		file << "#" << endl;
-		//sampler.setRandomized(true);
-		sampler.reset();
+		sampler.setRandomized(true);
 	}
 	delete[] sample;
 	file.close();
